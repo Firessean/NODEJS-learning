@@ -1,8 +1,10 @@
 'use strict';
 
-const validator = require('validator');
+const chalk = require('chalk');
+
 const getNotes = require('./notes.js');
 getNotes();
 
-// console.log(validator.isEmail('dmitry@example.com'));
-console.log(validator.isURL('https://mead.io'));
+console.log(chalk.green('Success!'));
+console.log(chalk.green.bgBlue('Success!'));
+console.log(chalk.green.bgBlue.inverse('Success!'));
