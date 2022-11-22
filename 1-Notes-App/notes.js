@@ -1,6 +1,6 @@
 'use strict';
 
-const getNotes = function () {
+const getNotes = function() {
   return console.log('Your notes...');
 };
 
