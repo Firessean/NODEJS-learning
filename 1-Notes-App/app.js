@@ -1,10 +1,14 @@
 'use strict';
 
 const chalk = require('chalk');
-
 const getNotes = require('./notes.js');
-getNotes();
 
-console.log(chalk.red('Error!'));
-console.log(chalk.red.bgBlue('Error!'));
-console.log(chalk.red.bgBlue.inverse('Error!'));
+const command = process.argv[2];
+
+console.log(process.argv);
+
+if (command === 'add') {
+  console.log('Adding note!');
+} else if (command === 'remove') {
+  console.log('Removing note!');
+}
