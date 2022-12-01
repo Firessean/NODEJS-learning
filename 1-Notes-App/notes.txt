@@ -1,4 +1,0 @@
-My name is Andrew. I am from Ukraine
-
-Commands for load npm modules
-npm init
