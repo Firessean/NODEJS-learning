@@ -6,22 +6,38 @@ const geocode = (address, callback) => {
     address
   )}.json?access_token=pk.eyJ1IjoiZmlyZXNzZWFuIiwiYSI6ImNsYnh1YmZpajAxaHYzdHBlbWFldHltYWMifQ.oYVL6V_X1p7DM4OuJ9sHeg&limit=1`;
 
-  request({ url: url, json: true }, (error, response) => {
-    if (error) {
-      callback('Unable to connect to geocoding service!', undefined);
-    } else if (response.body.features.length === 0) {
-      callback(
-        'Unable to find location! Try again with different search term',
-        undefined
-      );
-    } else {
-      callback(undefined, {
-        latitude: response.body.features[0].center[1],
-        longitude: response.body.features[0].center[0],
-        location: response.body.features[0].place_name,
-      });
+  request(
+    { url, json: true },
+    (
+      error,
+      {
+        body: {
+          features: [
+            {
+              place_name: location,
+              center: [longitude, latitude],
+            },
+          ],
+          features,
+        },
+      }
+    ) => {
+      if (error) {
+        callback('Unable to connect to geocoding service!', undefined);
+      } else if (features.length === 0) {
+        callback(
+          'Unable to find location! Try again with different search term',
+          undefined
+        );
+      } else {
+        callback(undefined, {
+          latitude,
+          longitude,
+          location,
+        });
+      }
     }
-  });
+  );
 };
 
 module.exports = geocode;
