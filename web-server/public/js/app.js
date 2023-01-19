@@ -1,21 +1,30 @@
 'use strict';
 console.log('Client side javascript is loaded!');
 
-const weatherForm = document.querySelector('form');
-const searchElement = document.querySelector('input');
+const searchButton = document.querySelector('.search__button');
+const searchElement = document.querySelector('.location__field');
+const messageOne = document.querySelector('#message-1');
+const messageTwo = document.querySelector('#message-2');
 
-weatherForm.addEventListener('submit', (e) => {
+searchButton.addEventListener('click', (e) => {
   e.preventDefault();
 
   const location = searchElement.value;
 
-  fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
-    response.json().then((data) => {
-      if (data.error) return console.log(data.error);
+  messageOne.textContent = 'Loading the weather. Please wait...';
+  messageTwo.textContent = '';
 
-      console.log(data.location);
-      console.log(data.forecast);
-    });
+  fetch(`http://localhost:3000/weather?address=${location}`).then(
+    (response) => {
+      response.json().then((data) => {
+        if (data.error) return (messageOne.textContent = data.error);
 
-  });
+        messageOne.textContent = data.location;
+        messageTwo.textContent = data.forecast;
+      });
+    }
+  );
+
+  searchElement.value = '';
+  searchElement.blur();
 });
